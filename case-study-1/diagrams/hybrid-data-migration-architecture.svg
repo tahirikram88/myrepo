@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="950" viewBox="0 0 1600 950">
+<style>
+    .title { font: 700 30px Arial, sans-serif; fill:#1f2937; }
+    .subtitle { font: 500 16px Arial, sans-serif; fill:#4b5563; }
+    .h { font: 700 18px Arial, sans-serif; fill:white; }
+    .b { font: 600 16px Arial, sans-serif; fill:#111827; }
+    .t { font: 500 14px Arial, sans-serif; fill:#111827; }
+    .small { font: 500 12px Arial, sans-serif; fill:#374151; }
+    .box { stroke:#334155; stroke-width:2; rx:18; ry:18; }
+    .arrow { stroke:#2563eb; stroke-width:5; fill:none; marker-end:url(#arrow); }
+    .dashed { stroke:#7c3aed; stroke-width:4; fill:none; stroke-dasharray:10 10; marker-end:url(#arrow2); }
+</style>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+  </marker>
+  <marker id="arrow2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="#7c3aed"/>
+  </marker>
+</defs>
+
+<text x="60" y="55" class="title">400TB Hybrid Data Migration Architecture — Mohammed Tahir Khan</text>
+<text x="60" y="85" class="subtitle">Primary cutover engine: SnapMirror | FinOps lane: Cold-data archive to S3 Glacier Flexible Retrieval</text>
+
+<rect x="55" y="125" width="420" height="680" class="box" fill="#e0f2fe"/>
+<text x="80" y="165" class="b">On-Premises Data Center</text>
+
+<rect x="85" y="205" width="360" height="120" class="box" fill="#bfdbfe"/>
+<text x="105" y="240" class="b">NetApp AFF Cluster</text>
+<text x="105" y="270" class="t">• 300+ volumes / 400 TB unstructured data</text>
+<text x="105" y="295" class="t">• NFS + SMB clients</text>
+
+<rect x="85" y="355" width="360" height="120" class="box" fill="#dbeafe"/>
+<text x="105" y="390" class="b">Low-Impact Metadata Scan Host</text>
+<text x="105" y="420" class="t">• Reads file metadata only</text>
+<text x="105" y="445" class="t">• Builds hot / warm / cold report</text>
+
+<rect x="85" y="505" width="360" height="120" class="box" fill="#dbeafe"/>
+<text x="105" y="540" class="b">Cutover Control Plane</text>
+<text x="105" y="570" class="t">• SnapMirror health checks</text>
+<text x="105" y="595" class="t">• Go / No-Go orchestration</text>
+
+<rect x="85" y="655" width="360" height="120" class="box" fill="#dbeafe"/>
+<text x="105" y="690" class="b">Business Owners / Data Stewards</text>
+<text x="105" y="720" class="t">• Approve archive candidates</text>
+<text x="105" y="745" class="t">• Validate post-cutover access</text>
+
+<rect x="560" y="125" width="470" height="680" class="box" fill="#eef2ff"/>
+<text x="585" y="165" class="b">AWS Landing Zone</text>
+
+<rect x="590" y="205" width="410" height="150" class="box" fill="#c7d2fe"/>
+<text x="615" y="240" class="b">Amazon FSx for NetApp ONTAP</text>
+<text x="615" y="270" class="t">Hot data (&lt;1 year) → SSD tier</text>
+<text x="615" y="295" class="t">Warm data (1–3 years) → ONTAP capacity pool</text>
+<text x="615" y="320" class="t">Near-zero downtime cutover target</text>
+
+<rect x="590" y="395" width="410" height="130" class="box" fill="#ddd6fe"/>
+<text x="615" y="430" class="b">EC2 Validation / Client Test Zone</text>
+<text x="615" y="460" class="t">• NFS/SMB smoke tests</text>
+<text x="615" y="485" class="t">• Application validation after mirror break</text>
+
+<rect x="590" y="565" width="410" height="130" class="box" fill="#ede9fe"/>
+<text x="615" y="600" class="b">Monitoring + Logs</text>
+<text x="615" y="630" class="t">• Cutover dashboard</text>
+<text x="615" y="655" class="t">• Transfer lag / health / issue tracking</text>
+
+<rect x="1105" y="125" width="420" height="680" class="box" fill="#ecfccb"/>
+<text x="1130" y="165" class="b">Archive &amp; Cost-Optimization Plane</text>
+
+<rect x="1135" y="235" width="360" height="140" class="box" fill="#d9f99d"/>
+<text x="1160" y="270" class="b">Amazon S3 Archive Landing</text>
+<text x="1160" y="300" class="t">Cold files &gt; 3 years</text>
+<text x="1160" y="325" class="t">Preserves searchable object inventory</text>
+<text x="1160" y="350" class="t">Can be restored on demand</text>
+
+<rect x="1135" y="430" width="360" height="140" class="box" fill="#bef264"/>
+<text x="1160" y="465" class="b">S3 Glacier Flexible Retrieval</text>
+<text x="1160" y="495" class="t">Lifecycle target for archived data</text>
+<text x="1160" y="520" class="t">Lowest-cost long-term retention path</text>
+<text x="1160" y="545" class="t">Good for 1–2 retrievals per year</text>
+
+<rect x="1135" y="625" width="360" height="120" class="box" fill="#d9f99d"/>
+<text x="1160" y="660" class="b">FinOps Reporting</text>
+<text x="1160" y="690" class="t">• Volume cold %</text>
+<text x="1160" y="715" class="t">• Avoided SSD spend</text>
+
+<path d="M445 265 C520 265, 520 265, 590 265" class="arrow"/>
+<text x="470" y="250" class="small">SnapMirror baseline + incrementals</text>
+
+<path d="M445 415 C530 415, 530 305, 1135 305" class="dashed"/>
+<text x="520" y="392" class="small">Cold-data classification feeds archive decisions</text>
+
+<path d="M795 355 C795 375, 795 385, 795 395" class="arrow"/>
+<text x="820" y="382" class="small">cutover validation</text>
+
+<path d="M795 525 C795 545, 795 555, 795 565" class="arrow"/>
+
+<path d="M445 565 C510 565, 510 630, 590 630" class="arrow"/>
+<text x="455" y="548" class="small">pre-check status</text>
+
+<path d="M1315 375 C1315 400, 1315 405, 1315 430" class="arrow"/>
+<text x="1345" y="406" class="small">lifecycle</text>
+
+<rect x="60" y="835" width="1470" height="75" class="box" fill="#ffffff"/>
+<text x="85" y="870" class="b">Interview summary:</text>
+<text x="260" y="870" class="t">Use SnapMirror for deterministic 4-hour cutover, but shrink the mirror set with metadata-driven cold-data archive so FinOps does not fund dead data on premium NAS.</text>
+</svg>

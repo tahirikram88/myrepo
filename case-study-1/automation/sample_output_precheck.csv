@@ -1,0 +1,4 @@
+volume,svm,state,healthy,lag_minutes,last_transfer_type,last_transfer_end,last_error,rag_status,reason
+eng-home-01,svm_eng,SnapMirrored,True,8,incremental,2026-03-30T21:10:00Z,,GREEN,Replication healthy
+prod-build-02,svm_prod,SnapMirrored,True,42,incremental,2026-03-30T20:55:00Z,,AMBER,Lag 42m exceeds green threshold
+archive-legacy-77,svm_archive,BrokenOff,False,999,incremental,2026-03-29T09:00:00Z,snapmirror state broken,RED,Unexpected state: BrokenOff

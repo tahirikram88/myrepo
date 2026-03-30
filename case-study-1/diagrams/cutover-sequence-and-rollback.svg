@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="780" viewBox="0 0 1600 780">
+<style>
+    .title { font: 700 28px Arial, sans-serif; fill:#1f2937; }
+    .b { font: 700 17px Arial, sans-serif; fill:#111827; }
+    .t { font: 500 14px Arial, sans-serif; fill:#111827; }
+    .small { font: 500 12px Arial, sans-serif; fill:#4b5563; }
+    .box { stroke:#334155; stroke-width:2; rx:18; ry:18; }
+    .arrow { stroke:#0f766e; stroke-width:5; fill:none; marker-end:url(#arrow); }
+</style>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="#0f766e"/>
+  </marker>
+</defs>
+<text x="60" y="55" class="title">4-Hour Cutover Sequence &amp; Rollback Logic</text>
+
+<rect x="60" y="120" width="190" height="130" class="box" fill="#ecfeff"/>
+<text x="80" y="155" class="b">1. Pre-stage</text>
+<text x="80" y="185" class="t">Lower TTL</text>
+<text x="80" y="210" class="t">Validate exports/shares</text>
+<text x="80" y="235" class="t">Prepare bridge team</text>
+
+<rect x="290" y="120" width="190" height="130" class="box" fill="#ccfbf1"/>
+<text x="310" y="155" class="b">2. Freeze Writes</text>
+<text x="310" y="185" class="t">App quiesce</text>
+<text x="310" y="210" class="t">User change freeze</text>
+<text x="310" y="235" class="t">Source authoritative</text>
+
+<rect x="520" y="120" width="190" height="130" class="box" fill="#99f6e4"/>
+<text x="540" y="155" class="b">3. Final Update</text>
+<text x="540" y="185" class="t">SnapMirror quiesce/update</text>
+<text x="540" y="210" class="t">Check lag = 0 or threshold</text>
+
+<rect x="750" y="120" width="190" height="130" class="box" fill="#5eead4"/>
+<text x="770" y="155" class="b">4. Break Mirror</text>
+<text x="770" y="185" class="t">Activate target write path</text>
+<text x="770" y="210" class="t">Mount exports / shares</text>
+
+<rect x="980" y="120" width="190" height="130" class="box" fill="#99f6e4"/>
+<text x="1000" y="155" class="b">5. Client Redirect</text>
+<text x="1000" y="185" class="t">DNS / DFS / autofs</text>
+<text x="1000" y="210" class="t">Pilot clients first</text>
+
+<rect x="1210" y="120" width="190" height="130" class="box" fill="#ccfbf1"/>
+<text x="1230" y="155" class="b">6. Business Test</text>
+<text x="1230" y="185" class="t">Smoke tests</text>
+<text x="1230" y="210" class="t">Owner sign-off</text>
+
+<path d="M250 185 C270 185, 275 185, 290 185" class="arrow"/>
+<path d="M480 185 C500 185, 505 185, 520 185" class="arrow"/>
+<path d="M710 185 C730 185, 735 185, 750 185" class="arrow"/>
+<path d="M940 185 C960 185, 965 185, 980 185" class="arrow"/>
+<path d="M1170 185 C1190 185, 1195 185, 1210 185" class="arrow"/>
+
+<rect x="160" y="360" width="1280" height="260" class="box" fill="#fff7ed"/>
+<text x="190" y="405" class="b">Rollback branch (trigger on any No-Go)</text>
+
+<rect x="220" y="450" width="210" height="110" class="box" fill="#fed7aa"/>
+<text x="245" y="485" class="b">A. Block AWS Writes</text>
+<text x="245" y="515" class="t">Stop new client changes</text>
+
+<rect x="485" y="450" width="210" height="110" class="box" fill="#fdba74"/>
+<text x="510" y="485" class="b">B. Restore Client Paths</text>
+<text x="510" y="515" class="t">Point back to on-prem</text>
+
+<rect x="750" y="450" width="210" height="110" class="box" fill="#fb923c"/>
+<text x="775" y="485" class="b">C. Re-open Source</text>
+<text x="775" y="515" class="t">On-prem becomes RW again</text>
+
+<rect x="1015" y="450" width="210" height="110" class="box" fill="#fdba74"/>
+<text x="1040" y="485" class="b">D. Validate Recovery</text>
+<text x="1040" y="515" class="t">Access + app tests</text>
+
+<path d="M430 505 C455 505, 460 505, 485 505" class="arrow"/>
+<path d="M695 505 C720 505, 725 505, 750 505" class="arrow"/>
+<path d="M960 505 C985 505, 990 505, 1015 505" class="arrow"/>
+
+<text x="220" y="655" class="small">Critical rule: keep on-prem source intact until business validation is complete and the stabilization window closes.</text>
+</svg>
