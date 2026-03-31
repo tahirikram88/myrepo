@@ -6,6 +6,12 @@ from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 import boto3
+
+CW = boto3.client(
+    "cloudwatch",
+    region_name="us-east-1"
+)
+
 from botocore.exceptions import ClientError
 
 LOGGER = logging.getLogger()
