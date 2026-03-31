@@ -23,7 +23,7 @@ jobs:
 
       - name: Run Case Study 1 Script
         run: |
-          python case-study-1/automation/precutover_replication_healthcheck.py
+          python case-study-1/automation/netapp_cutover_precheck.py
 
       - name: Run Case Study 2 Script (Safe Mode)
         env:
