@@ -116,7 +116,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--mock", action="store_true", help="Use built-in mock data")
     parser.add_argument("--input", help="JSON input file containing SnapMirror relationship data")
-    parser.add_argument("--output", required=True, help="CSV output path")
+    parser.add_argument("--output", required=True, help="CSV output path") --mock --output case-study-1/output/report.csv
     args = parser.parse_args()
 
     if not args.mock and not args.input:
