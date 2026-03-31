@@ -1,0 +1,33 @@
+name: Demo Run
+
+on:
+  workflow_dispatch:   # manual trigger (important for demo)
+  push:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5   # IMPORTANT (Node24 compatible)
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install boto3 botocore
+
+      - name: Run Case Study 1 Script
+        run: |
+          python case-study-1/automation/precutover_replication_healthcheck.py
+
+      - name: Run Case Study 2 Script (Safe Mode)
+        env:
+          DRY_RUN: "true"
+          AWS_REGION: "us-east-1"
+        run: |
+          python case-study-2/src/main.py
