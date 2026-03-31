@@ -6,19 +6,19 @@ from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 import boto3
-
-CW = boto3.client(
-    "cloudwatch",
-    region_name="us-east-1"
-)
-
 from botocore.exceptions import ClientError
 
 LOGGER = logging.getLogger()
 LOGGER.setLevel(logging.INFO)
 
 S3 = boto3.client("s3")
-CW = boto3.client("cloudwatch")
+
+CW = boto3.client(
+    "cloudwatch",
+    region_name="us-east-1"
+)
+``
+#CW = boto3.client("cloudwatch")
 
 DRY_RUN = os.getenv("DRY_RUN", "true").lower() == "true"
 SIZE_THRESHOLD_BYTES = int(os.getenv("SIZE_THRESHOLD_BYTES", str(100 * 1024**3)))
