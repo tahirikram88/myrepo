@@ -23,7 +23,7 @@ jobs:
 
       - name: Run Case Study 1 Script
         run: |
-          python case-study-1/automation/netapp_cutover_precheck.py
+          python case-study-1/automation/netapp_cutover_precheck.py --mock --output precheck_output.csv
 
       - name: Run Case Study 2 Script (Safe Mode)
         env:
