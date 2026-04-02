@@ -12,13 +12,7 @@ LOGGER = logging.getLogger()
 LOGGER.setLevel(logging.INFO)
 
 S3 = boto3.client("s3")
-
-CW = boto3.client(
-    "cloudwatch",
-    region_name="us-east-1"
-)
-``
-#CW = boto3.client("cloudwatch")
+CW = boto3.client("cloudwatch", region_name="us-east-1")
 
 DRY_RUN = os.getenv("DRY_RUN", "true").lower() == "true"
 SIZE_THRESHOLD_BYTES = int(os.getenv("SIZE_THRESHOLD_BYTES", str(100 * 1024**3)))
@@ -36,8 +30,6 @@ def log(message: str, **extra) -> None:
 
 
 def list_buckets_paginated():
-    # s3:list_buckets is not actually paginated, but we still keep the loop shape simple
-    # so the code is easy to extend for batch processing patterns.
     response = S3.list_buckets()
     for bucket in response.get("Buckets", []):
         yield bucket["Name"]
@@ -69,7 +61,6 @@ def has_lifecycle_policy(bucket_name: str) -> bool:
 
 
 def get_bucket_size_bytes(bucket_name: str) -> int | None:
-    # S3 daily storage metrics are reported once per day and have latency.
     end_time = datetime.utcnow()
     start_time = end_time - timedelta(days=3)
 
@@ -86,9 +77,14 @@ def get_bucket_size_bytes(bucket_name: str) -> int | None:
             Period=86400,
             Statistics=["Average"],
         )
-        datapoints = sorted(response.get("Datapoints", []), key=lambda x: x["Timestamp"], reverse=True)
+        datapoints = sorted(
+            response.get("Datapoints", []),
+            key=lambda x: x["Timestamp"],
+            reverse=True,
+        )
         if datapoints:
             return int(datapoints[0]["Average"])
+
     return None
 
 
@@ -111,7 +107,11 @@ def standard_policy() -> dict:
 
 def apply_policy(bucket_name: str) -> None:
     if DRY_RUN:
-        log("DRY_RUN enabled - would apply lifecycle policy", bucket=bucket_name, policy=standard_policy())
+        log(
+            "DRY_RUN enabled - would apply lifecycle policy",
+            bucket=bucket_name,
+            policy=standard_policy(),
+        )
         return
 
     S3.put_bucket_lifecycle_configuration(
@@ -124,12 +124,19 @@ def apply_policy(bucket_name: str) -> None:
 def retryable(fn, *args, **kwargs):
     retries = 3
     delay = 1.0
+
     for attempt in range(1, retries + 1):
         try:
             return fn(*args, **kwargs)
         except ClientError as exc:
             code = exc.response["Error"].get("Code", "Unknown")
-            if code in {"Throttling", "ThrottlingException", "TooManyRequestsException", "RequestTimeout", "InternalError"} and attempt < retries:
+            if code in {
+                "Throttling",
+                "ThrottlingException",
+                "TooManyRequestsException",
+                "RequestTimeout",
+                "InternalError",
+            } and attempt < retries:
                 log("Retrying after AWS API error", error_code=code, attempt=attempt)
                 time.sleep(delay)
                 delay *= 2
@@ -156,10 +163,19 @@ def evaluate_bucket(bucket_name: str) -> dict:
 
     if size_bytes <= SIZE_THRESHOLD_BYTES:
         log("Bucket below threshold - skip", bucket=bucket_name, size_bytes=size_bytes)
-        return {"bucket": bucket_name, "action": "skip_below_threshold", "size_bytes": size_bytes}
+        return {
+            "bucket": bucket_name,
+            "action": "skip_below_threshold",
+            "size_bytes": size_bytes,
+        }
 
     retryable(apply_policy, bucket_name)
-    return {"bucket": bucket_name, "action": "applied", "size_bytes": size_bytes, "dry_run": DRY_RUN}
+    return {
+        "bucket": bucket_name,
+        "action": "applied",
+        "size_bytes": size_bytes,
+        "dry_run": DRY_RUN,
+    }
 
 
 def lambda_handler(event, context):
