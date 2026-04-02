@@ -33,7 +33,7 @@ This repository is designed for a README-driven walkthrough and covers both case
 7. Move to `case-study-2/src/main.py`
 8. Finish with `case-study-2/terraform/` and `case-study-2/docs/02-scale-redesign.md`
 
-### Case Study 1 verdict
+### Case Study 1 
 Use a **hybrid approach**:
 - **SnapMirror** for hot and warm NAS volumes that must cut over within the 4-hour window
 - **Metadata-led cold data identification** before cutover
@@ -42,7 +42,7 @@ Use a **hybrid approach**:
 
 This keeps the final cutover predictable while still satisfying FinOps.
 
-### Case Study 2 verdict
+### Case Study 2 
 Use **EventBridge Scheduler + Lambda + CloudWatch Logs + least-privilege IAM**, with:
 - strict skip logic for exempt buckets
 - CloudWatch `BucketSizeBytes` daily metrics
@@ -57,7 +57,7 @@ Use **EventBridge Scheduler + Lambda + CloudWatch Logs + least-privilege IAM**, 
 - Hot data (<1 year): **20% = 80 TB**
 - Pricing is **illustrative**, based on current public AWS pricing pages and should be region-tuned in AWS Pricing Calculator before delivery.
 
-## Suggested demo lab
+## demo lab
 
 See:
 - `case-study-1/docs/06-lab-setup.md`
