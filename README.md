@@ -7,7 +7,7 @@ This repository is designed for a README-driven walkthrough and covers both case
 ## What is included
 
 - **Case Study 1 — 400TB Hybrid Data Dilemma**
-  - architecture diagram (SVG + PNG)
+  - architecture diagram 
   - decision matrix (SnapMirror vs DataSync)
   - FinOps cost model
   - cutover and rollback playbook
