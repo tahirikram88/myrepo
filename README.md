@@ -7,20 +7,20 @@ This repository is designed for a README-driven walkthrough and covers both case
 ## What is included
 
 - **Case Study 1 — 400TB Hybrid Data Dilemma**
-  - architecture diagram 
-  - decision matrix (SnapMirror vs DataSync)
+  - Architecture diagram 
+  - Decision matrix (SnapMirror vs DataSync)
   - FinOps cost model
-  - cutover and rollback playbook
-  - data integrity strategy
+  - Cutover and rollback playbook
+  - Data integrity strategy
   - Python pre-check orchestrator for 300 volumes
-  - lab setup and mock execution guidance
+  - Lab setup and mock execution guidance
 
 - **Case Study 2 — Automated S3 Lifecycle Enforcement**
-  - production-style Lambda code in Python/Boto3
+  - Production-style Lambda code in Python
   - Terraform for EventBridge Scheduler, Lambda, CloudWatch logging, IAM
   - DRY_RUN support
-  - pagination, retry handling, exemption-tag logic
-  - scale-out redesign notes
+  - Pagination, retry handling, exemption-tag logic
+  - Scale-out redesign notes
 
 ## Recommended presentation flow
 
