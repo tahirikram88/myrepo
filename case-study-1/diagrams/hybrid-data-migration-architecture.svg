@@ -102,6 +102,6 @@
 <text x="1345" y="406" class="small">lifecycle</text>
 
 <rect x="60" y="835" width="1470" height="75" class="box" fill="#ffffff"/>
-<text x="85" y="870" class="b">Interview summary:</text>
+<text x="85" y="870" class="b">Summary:</text>
 <text x="260" y="870" class="t">Use SnapMirror for deterministic 4-hour cutover, but shrink the mirror set with metadata-driven cold-data archive so FinOps does not fund dead data on premium NAS.</text>
 </svg>
