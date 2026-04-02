@@ -1,33 +1,45 @@
-name: Demo Run
+name: Case Study 2 CI
 
 on:
-  workflow_dispatch:   # manual trigger (important for demo)
+  workflow_dispatch:
   push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  run-script:
+  case-study-2:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v5
 
-      - name: Setup Python
-        uses: actions/setup-python@v5   # IMPORTANT (Node24 compatible)
+      - name: Set up Python
+        uses: actions/setup-python@v6
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Install dependencies
         run: |
-          pip install boto3 botocore
+          python -m pip install --upgrade pip
+          pip install boto3 botocore pytest
 
-      - name: Run Case Study 1 Script
+      - name: Syntax check
         run: |
-          python case-study-1/automation/netapp_cutover_precheck.py --mock --output precheck_output.csv
+          python -m py_compile case-study-2/src/main.py
 
-      - name: Run Case Study 2 Script (Safe Mode)
+      - name: Run Case Study 2 in DRY_RUN mode
         env:
           DRY_RUN: "true"
-          AWS_REGION: "us-east-1"
+          TIMEZONE: "US/Eastern"
+          SIZE_THRESHOLD_BYTES: "1"
+          AWS_DEFAULT_REGION: "us-east-1"
         run: |
           python case-study-2/src/main.py
