@@ -1,0 +1,44 @@
+<svg width="900" height="500" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .box { fill:#f5f5f5; stroke:#333; stroke-width:1.5; }
+    .text { font-family:Arial; font-size:14px; fill:#000; }
+    .title { font-size:18px; font-weight:bold; }
+    .arrow { stroke:#333; stroke-width:1.5; marker-end:url(#arrowhead); }
+  </style>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+    refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+  </defs>
+
+  <text x="250" y="30" class="title">Automated S3 Lifecycle Enforcement Architecture</text>
+
+  <!-- EventBridge -->
+  <rect x="50" y="100" width="200" height="60" class="box"/>
+  <text x="80" y="135" class="text">Amazon EventBridge</text>
+
+  <!-- Lambda -->
+  <rect x="350" y="100" width="200" height="60" class="box"/>
+  <text x="410" y="135" class="text">AWS Lambda</text>
+
+  <!-- S3 -->
+  <rect x="650" y="60" width="200" height="60" class="box"/>
+  <text x="720" y="95" class="text">S3 Buckets</text>
+
+  <!-- CloudWatch -->
+  <rect x="650" y="160" width="200" height="60" class="box"/>
+  <text x="700" y="195" class="text">CloudWatch Logs</text>
+
+  <!-- IAM -->
+  <rect x="350" y="220" width="200" height="60" class="box"/>
+  <text x="410" y="255" class="text">IAM Role</text>
+
+  <!-- Arrows -->
+  <line x1="250" y1="130" x2="350" y2="130" class="arrow"/>
+  <line x1="550" y1="120" x2="650" y2="90" class="arrow"/>
+  <line x1="550" y1="140" x2="650" y2="190" class="arrow"/>
+  <line x1="450" y1="160" x2="450" y2="220" class="arrow"/>
+
+</svg>
