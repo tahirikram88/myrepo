@@ -22,7 +22,7 @@ This repository is designed for a README-driven walkthrough and covers both case
   - Pagination, retry handling, exemption-tag logic
   - Scale-out redesign notes
 
-## Recommended presentation flow
+## Presentation flow
 
 1. Open `case-study-1/diagrams/hybrid-data-migration-architecture.svg`
 2. Walk through `case-study-1/docs/01-executive-architecture.md`
